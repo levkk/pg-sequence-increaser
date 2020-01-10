@@ -50,7 +50,7 @@ def _sequence_name(column_default):
 
 def _sequences(cursor):
     sequences = _exec(cursor, """SELECT table_name, column_name, column_default::text AS column_default FROM information_schema.columns
-        WHERE table_schema = 'public' AND column_default::text LIKE 'nextval%'""").fetchall()
+        WHERE table_schema = 'public' AND column_default::text LIKE 'nextval(''%''::regclass)'""").fetchall()
 
     return sequences
 
