@@ -25,13 +25,13 @@ $ pip install -r requirements.txt
 ### Usage
 
 ```bash
-$ pgseqmover --db-url=postgres://localhost:5432/my_db
+$ pgseqmover --db-url=postgres://localhost:5432/my_db --execute
 ```
 
 will increase all sequences by 1000.
 
 This also accepts optional arguments:
 
-1. `--dry-run` which will show the queries it will run but not actually do anything,
+1. `--dry-run` which will show the queries it will run but not actually do anything; this is the default behavior,
 2. `--debug` will show _all_ queries it's running; can be combined with `--dry-run`,
 3. `--increment-by` overrides the default increase by value of 1000 to any value (even negative ones).
