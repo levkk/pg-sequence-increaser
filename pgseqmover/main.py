@@ -65,7 +65,7 @@ def _update_sequence(cursor, sequence, increment_by, dry_run):
     query = "SELECT setval(%s, %s, true)"
     params = (_sequence_name(sequence['column_default']), id_)
 
-    if dry_run is True:
+    if dry_run:
         _dry_run(cursor, query, params)
     else:
         _exec(cursor, query, params)
