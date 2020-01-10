@@ -73,7 +73,7 @@ def _update_sequence(cursor, sequence, increment_by, dry_run):
 
 @click.command()
 @click.option('--db-url', required=True, help='Connection string for the target database.')
-@click.option('--dry-run/--execute', required=False, default=False, help='Show what will be done, but do nothing else.')
+@click.option('--dry-run/--execute', required=False, default=True, help='Show what will be done, but do nothing else.')
 @click.option('--debug/--release', required=False, default=False, help='Show queries that actually ran.')
 @click.option('--increment-by', default=1000, help='Increment the sequence by this amount.')
 def main(db_url, dry_run, debug, increment_by):
