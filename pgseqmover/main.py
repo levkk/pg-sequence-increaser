@@ -7,7 +7,7 @@ import colorama
 from colorama import Fore
 import os
 
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 __author__ = 'Lev Kokotov <lev.kokotov@instacart.com>'
 __version__ = VERSION
@@ -124,6 +124,10 @@ def _update_sequence(cursor, sequence_name, sequence_value, dry_run, increment_b
         _exec(cursor, query, params)
 
 
+def _version():
+    return 'pg-sequence-mover v{}'.format(__version__)
+
+
 @click.command()
 @click.option('--replica-url', required=True, help='Connection string for the target database (replica).')
 @click.option('--primary-url', required=False, help='Connection string for the current primary database.')
@@ -135,12 +139,16 @@ def _update_sequence(cursor, sequence_name, sequence_value, dry_run, increment_b
     'MAX(id) of the corresponding column.')
 @click.option('--queries-only/--run-directly', help='Only print the queries that will execute on the target database.', default=False)
 def main(replica_url, primary_url, dry_run, debug, increment_by, strategy, queries_only):
+    if not queries_only:
+        _result('Welcome to the ' + _version())
+        print()
+
     if debug:
         os.environ['DEBUG'] = 'True'
 
     if queries_only:
         os.environ['QUERIES_ONLY'] = 'True'
-        dry_run = True
+        dry_run = True # Override whatever you said for dry-run.
 
     # Connect to the replica
     conn, cursor = connect(replica_url)
