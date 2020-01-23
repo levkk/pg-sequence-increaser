@@ -98,7 +98,7 @@ class ReplicaSequenceStrategy(SequenceStrategy):
 
     def sequence_value(self, sequence):
         return _exec(
-            self.cursor, 'SELECT MAX({}) AS "max" FROM {}'.format(sequence['column_name'], sequence['table_name'])).fetchone()['max']
+            self.cursor, 'SELECT COALESCE(MAX({}), 0) AS "max" FROM {}'.format(sequence['column_name'], sequence['table_name'])).fetchone()['max']
 
 
     def sequence_name(self, sequence):
