@@ -77,7 +77,7 @@ class PrimarySequenceStrategy(SequenceStrategy):
 
     def sequence_value(self, sequence):
         return int(_exec(self.cursor,
-            'SELECT last_value FROM pg_sequences WHERE sequencename = %s', (sequence['sequence_name'],)).fetchone()['last_value'])
+            'SELECT COALESCE(last_value, 1) AS last_value FROM pg_sequences WHERE sequencename = %s', (sequence['sequence_name'],)).fetchone()['last_value'])
 
 
     def sequence_name(self, sequence):
@@ -98,7 +98,7 @@ class ReplicaSequenceStrategy(SequenceStrategy):
 
     def sequence_value(self, sequence):
         return _exec(
-            self.cursor, 'SELECT COALESCE(MAX({}), 0) AS "max" FROM {}'.format(sequence['column_name'], sequence['table_name'])).fetchone()['max']
+            self.cursor, 'SELECT COALESCE(MAX({}), 1) AS "max" FROM {}'.format(sequence['column_name'], sequence['table_name'])).fetchone()['max']
 
 
     def sequence_name(self, sequence):
