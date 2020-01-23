@@ -7,7 +7,7 @@ import colorama
 from colorama import Fore
 import os
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 
 __author__ = 'Lev Kokotov <lev.kokotov@instacart.com>'
 __version__ = VERSION
