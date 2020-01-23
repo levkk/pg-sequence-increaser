@@ -140,6 +140,7 @@ def main(replica_url, primary_url, dry_run, debug, increment_by, strategy, queri
 
     if queries_only:
         os.environ['QUERIES_ONLY'] = 'True'
+        dry_run = True
 
     # Connect to the replica
     conn, cursor = connect(replica_url)
